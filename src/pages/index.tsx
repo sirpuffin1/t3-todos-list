@@ -31,7 +31,11 @@ const Content: React.FC = () => {
     }
   );
 
-  const createTopic = api.topic.create.useMutation({});
+  const createTopic = api.topic.create.useMutation({
+    onSuccess: () => {
+      refetchTopics()
+    }
+  });
   return (
     <div className="mx-5 mt-5 grid grid-cols-4 gap-2">
       <div className="px-2">
