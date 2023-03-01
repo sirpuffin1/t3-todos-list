@@ -1,6 +1,8 @@
 import { type NextPage } from "next";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Header from "~/components/Header";
+import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
   return (
@@ -12,9 +14,25 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Header />
+        <Content />
       </main>
     </>
   );
 };
 
 export default Home;
+
+const Content: React.FC = () => {
+  const { data: sessionData } = useSession()
+  const { data: topics, refetch: refetchTopics } = api.topic.getAll.useQuery(
+    undefined,
+    {
+      enabled: sessionData?.user !== undefined
+    }
+  )
+  return (
+    <>
+    {JSON.stringify(topics)}
+    </>
+  )
+}
