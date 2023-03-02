@@ -55,6 +55,12 @@ const Content: React.FC = () => {
     }
   )
 
+  const deleteTopic = api.topic.delete.useMutation({
+    onSuccess: () => {
+      void refetchTopics()
+    }
+  })
+
   const createNote = api.note.create.useMutation({
     onSuccess: () => {
       void refetchNotes()
@@ -72,7 +78,8 @@ const Content: React.FC = () => {
       <div className="px-2">
         <ul className="menu rounded-box w-56 bg-base-100 p-2">
         {topics?.map((topic) => (
-            <li key={topic.id}>
+          <div className="flex justify-end items-center" key={topic.id}>
+            <li>
               <a
                 href="#"
                 onClick={(evt) => {
@@ -82,7 +89,12 @@ const Content: React.FC = () => {
               >
                 {topic.title}
               </a>
+             
             </li>
+            <button className="btn-ghost btn-sm btn" onClick={() => deleteTopic.mutate({id: topic.id})}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z"/></svg>
+          </button>
+            </div>
           ))}
         </ul>
         <div className="divider"></div>
