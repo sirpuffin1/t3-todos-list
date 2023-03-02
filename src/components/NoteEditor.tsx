@@ -36,6 +36,19 @@ const NoteEditor = ({
           className="border border-gray-300"
         />
       </div>
+      <div className="card-actions justify-end">
+        <button onClick={() => {
+            onSave({
+                title,
+                content: code
+            })
+            setCode("");
+            setTitle("")
+        }}
+        className="btn-primary btn"
+        disabled={title.trim().length === 0 || code.trim().length === 0}
+        >Save</button>
+      </div>
     </div>
   );
 };
