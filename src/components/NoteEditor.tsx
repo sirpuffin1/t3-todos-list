@@ -23,6 +23,18 @@ const NoteEditor = ({
             onChange={(e) => setTitle(e.currentTarget.value)}
           />
         </h2>
+        <CodeMirror
+          value={code}
+          width="500px"
+          height="30vh"
+          minWidth="100%"
+          minHeight="30vh"
+          extensions={[
+            markdown({ base: markdownLanguage, codeLanguages: languages }),
+          ]}
+          onChange={(value) => setCode(value)}
+          className="border border-gray-300"
+        />
       </div>
     </div>
   );
